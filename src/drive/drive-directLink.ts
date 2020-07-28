@@ -84,10 +84,13 @@ export async function getGDindexLink(fileId: string, isUrl?: boolean) {
                             reject(err.message);
                         } else {
                             if (res.data) {
-                                let url = constants.INDEX_DOMAIN + encodeURIComponent(await getFilePathDrive(res.data.parents, drive) + res.data.name);
+                                const filePath = await getFilePathDrive(res.data.parents, drive);
+                                let path = filePath.path + res.data.name;
+                                let url = constants.INDEX_DOMAIN + encodeURIComponent(path);
                                 if (res.data.mimeType === 'application/vnd.google-apps.folder') {
                                     url += '/'
                                 }
+                                url += '?rootId=' + filePath.rootId;
                                 resolve(isUrl ? { url: url, name: res.data.name } : url);
                             } else {
                                 reject('🔥 error: %o : File not found');
@@ -101,7 +104,7 @@ export async function getGDindexLink(fileId: string, isUrl?: boolean) {
     });
 }
 
-async function getFilePathDrive(parents: any, drive: any) {
+async function getFilePathDrive(parents: any, drive: any): Promise<{ path: string, rootId: string }> {
     let parent = parents;
     let tree = [];
     let path: string = '';
@@ -115,9 +118,10 @@ async function getFilePathDrive(parents: any, drive: any) {
     }
     tree.reverse();
     for (const folder of tree) {
-        if (folder.name !== 'Stuffs' && folder.name !== 'AnotherGdriveBot') {
+        if (folder.name !== 'Stuffs') {
             path += folder.name + '/';
         }
     }
-    return path;
+    let rootId = tree.length > 0 ? tree[0].id : parents[0];
+    return { path, rootId };
 }

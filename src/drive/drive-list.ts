@@ -29,7 +29,7 @@ export function listFiles(fileName: string, callback: (err: string, message: str
 
     drive.files.list({
       // @ts-ignore Unknown property error
-      fields: 'files(id, name, mimeType, size)',
+      fields: 'files(id, name, mimeType, size, parents)',
       q: generateSearchQuery(fileName, parent_dir_id),
       orderBy: 'modifiedTime desc',
       pageSize: 20,
@@ -106,14 +106,14 @@ function generateFilesListMessage(files: any[], fileName: string): string {
         message += ' (' + dlUtils.formatSize(files[i]['size']) + ')';
         //uncomment the below filename === '*' if u want gdindex link ony in 'list *'
         if (/*fileName === '*'  && */ constants.INDEX_DOMAIN) {
-          message += ` | <a href="` + constants.INDEX_DOMAIN + encodeURIComponent(files[i]['name']) + `">Index URL</a>`;
+          message += ` | <a href="` + constants.INDEX_DOMAIN + encodeURIComponent(files[i]['name']) + `?rootId=` + files[i]['parents'][0] + `">Index URL</a>`;
         }
         message += '\n';
       } else if (files[i]['mimeType'] === 'application/vnd.google-apps.folder') {
         message += ' (folder)';
         //uncomment the below filename === '*' if u want gdindex link ony in 'list *'
         if (/* fileName === '*' && */ constants.INDEX_DOMAIN) {
-          message += ` | <a href="` + constants.INDEX_DOMAIN + encodeURIComponent(files[i]['name']) + `/">Index URL</a>`;
+          message += ` | <a href="` + constants.INDEX_DOMAIN + encodeURIComponent(files[i]['name']) + `/?rootId=`+ files[i]['parents'][0] +`">Index URL</a>`;
         }
         message += '\n';
       } else {
