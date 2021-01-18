@@ -1,0 +1,25 @@
+name: Deploy to heroku
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "" #Must be unique in Heroku
+          heroku_email: ""
+          usedocker: true
+          docker_heroku_process_type: "worker"
+        env:
+          HD_SA_ZIP_URL: ${{secrets.SA_ZIP_URL}}
+          HD_CREDENTIALS: ${{secrets.CREDENTIALS}}
+          HD_CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+          HD_CONFIG_URL: ${{secrets.CONFIG_URL}}
+          HD_MAX_CONCURRENT_DOWNLOADS: ${{secrets.MAX_CONCURRENT_DOWNLOADS}}
