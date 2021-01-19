@@ -13,8 +13,8 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.8.9 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "" #Must be unique in Heroku
-          heroku_email: ""
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
           usedocker: true
           docker_heroku_process_type: "worker"
         env:
