@@ -130,4 +130,3 @@ function notifyExternal(successful: boolean, originGroup: number, values: any) {
     req.write(data);
     req.end();
 }
-

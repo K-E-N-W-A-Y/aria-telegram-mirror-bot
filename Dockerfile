@@ -1,5 +1,5 @@
 #Base Image
-FROM ghcr.io/arghyac35/aria-telegram-mirror-bot:master
+FROM ghcr.io/k-e-n-w-a-y/aria-telegram-mirror-bot:master
 
 WORKDIR /bot/
 

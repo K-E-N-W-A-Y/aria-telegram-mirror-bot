@@ -149,7 +149,7 @@ function generateFilesListMessage(files: any[], fileName: string): string {
 
     }
   } else {
-    message = 'There are no files matching your parameters';
+    message = 'There are no files matching your search parameters';
   }
 
   return message;
