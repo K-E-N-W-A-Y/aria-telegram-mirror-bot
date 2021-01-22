@@ -221,7 +221,7 @@ setEventCallback(eventRegex.commandsRegex.restart, eventRegex.commandsRegexNoNam
       if (!process.env.HEROKU_API_KEY) {
         msgTools.sendMessage(bot, msg, `Can't restart as <code>HEROKU_API_KEY</code> is not provided`);
       } else {
-        let restartingMsg = await bot.sendMessage(msg.chat.id, `Heroku dyno will be restarted now.`, {
+        let restartingMsg = await bot.sendMessage(msg.chat.id, `Restarting the bot...`, {
           reply_to_message_id: msg.message_id,
           parse_mode: 'HTML'
         });
@@ -977,7 +977,7 @@ function driveUploadCompleteCallback(err: string, gid: string, url: string, file
     }
 
     if (constants.IS_TEAM_DRIVE && isFolder) {
-      finalMessage += '\n\n<i>Folders in Shared Drives can only be shared with members of the drive. Mirror as an archive if you need public links.</i>';
+      finalMessage += '\n\n<i>Folders in Shared Drives can only be shared with members of the drive.</i>';
     }
     cleanupDownload(gid, finalMessage, url);
   }

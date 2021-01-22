@@ -19,7 +19,7 @@ export async function driveClone(fileId: string, bot: TelegramBot, cloneMsg: Tel
                 if (meta.data.mimeType === 'application/vnd.google-apps.folder') {
                     // Create directory
                     await createFolder(drive, meta.data.name, constants.GDRIVE_PARENT_DIR_ID, meta.data.mimeType).then(async (dir_id) => {
-                        message += `\n\nFolder Created, now Ruko zara🖐 sabar karo✋...`;
+                        message += `\n\nFolder Created, Please wait...`;
                         msgTools.editMessage(bot, cloneMsg, message);
                         // copy dir
                         let folderSize = await copyFolder(meta.data, dir_id, drive);
@@ -38,12 +38,12 @@ export async function driveClone(fileId: string, bot: TelegramBot, cloneMsg: Tel
                         });
                     }).catch(reject);
                 } else {
-                    message += `\n\nRuko zara sabar karo...`;
+                    message += `\n\nPlease wait...`;
                     msgTools.editMessage(bot, cloneMsg, message);
                     //copy file
                     await copyFile(meta.data, constants.GDRIVE_PARENT_DIR_ID, drive).then((res: any) => {
                         let msg: string;
-                        message += `\n\nYo boi copy is done getting shareable link...`;
+                        message += `\n\nYour copy is ready, getting shareable link...`;
                         msgTools.editMessage(bot, cloneMsg, message);
                         gdrive.getSharableLink(res.data.id, false, (err, url) => {
                             if (err) {
@@ -62,7 +62,7 @@ export async function driveClone(fileId: string, bot: TelegramBot, cloneMsg: Tel
                     });
                 }
             }).catch((error: Error) => {
-                reject(error.message + `\n\nEither it is not a Shareable Link or something went wrong while fetching files metadata`);
+                reject(error.message + `\n\nEither it's not a Shareable Link or something went wrong while fetching files metadata`);
             });
         }).catch(reject);
 

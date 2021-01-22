@@ -63,7 +63,7 @@ export async function driveDownloadAndTar(fileId: string, bot: TelegramBot, tarr
                     } else {
                         // make tar of the downloaded files
                         // start tarring
-                        message = `Creating Tar: <code>${meta.data.name}</code>\n\n🤐All files download complete now making tar...`;
+                        message = `Creating Tar: <code>${meta.data.name}</code>\n\n🤐 Download complete, now making tar...`;
                         msgTools.editMessage(bot, tarringMsg, message);
 
                         console.log('Starting archival');
@@ -101,7 +101,7 @@ export async function driveDownloadAndTar(fileId: string, bot: TelegramBot, tarr
                                             finalMessage = `<a href='${url}'>${destName}</a>`;
                                         }
                                         if (constants.IS_TEAM_DRIVE && isFolder) {
-                                            finalMessage += '\n\n<i>Folders in Shared Drives can only be shared with members of the drive. Mirror as an archive if you need public links.</i>';
+                                            finalMessage += '\n\n<i>Folders in Shared Drives can only be shared with members of the drive.</i>';
                                         }
                                         if (res.status) {
                                             finalMessage += '\n\nNote: There might be somefiles which is not inside tar, because downloading failed.'
@@ -120,7 +120,7 @@ export async function driveDownloadAndTar(fileId: string, bot: TelegramBot, tarr
                     reject('Provide folder url');
                 }
             }).catch(e => {
-                reject(e.message + `\n\nEither it is not a Shareable Link or something went wrong while fetching files metadata`);
+                reject(e.message + `\n\nEither it's not a Shareable Link or something went wrong while fetching files metadata`);
             });
         });
     });
@@ -331,7 +331,7 @@ async function downloadFile(file: any, drive: drive_v3.Drive, filePath: string) 
                 }).pipe(dest);
 
         }).catch((error: Error) => {
-            reject(error.message + `\n\nEither it is not a Shareable Link or something went wrong while fetching files metadata`);
+            reject(error.message + `\n\nEither it's not a Shareable Link or something went wrong while fetching files metadata`);
         });
     });
 }
