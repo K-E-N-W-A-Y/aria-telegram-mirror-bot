@@ -1,7 +1,7 @@
 {
-  "name": "mirror-bot",
+  "name": "file-bot",
   "version": "2.0.0",
-  "description": "A telegram bot to mirror files to Google Drive",
+  "description": "lok tg group file helper bot",
   "main": "index.js",
   "scripts": {
     "start": "NTBA_FIX_319=1 node --max_old_space_size=128 ./out/index.js",

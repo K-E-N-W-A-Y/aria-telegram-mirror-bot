@@ -1,12 +1,12 @@
 [Unit]
-Description=aria2 mirror Telegram Bot service
+Description=lok helper Telegram Bot service
 After=network.target
 
 [Service]
 Restart=on-abort
 Type=simple
 User=bots
-WorkingDirectory=/home/bots/aria-telegram-mirror-bot
+WorkingDirectory=/home/bots/telegram-mirror-bot
 ExecStartPre=/usr/bin/env bash start.sh
 ExecStart=/usr/bin/npm start
 ExecReload=/bin/kill -USR1 $MAINPID

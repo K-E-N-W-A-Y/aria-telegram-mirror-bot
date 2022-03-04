@@ -12,7 +12,7 @@ on:
       - v*
 
 env:
-  IMAGE: ghcr.io/${{ github.repository }}
+  IMAGE: ghcr.io/k-e-n-w-a-y/aria-telegram-mirror-bot
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - if: github.event.pusher.name != 'arghyac35'
+      - if: github.event.pusher.name != 'k-e-n-w-a-y'
         name: Check last commit author
         run: echo "Author mismatch existing..." && exit 1
 
@@ -32,14 +32,10 @@ jobs:
       - name: Build and Push image
         run: |
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
           [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
           echo VERSION=$VERSION
           echo "Building"
           docker build . -f docker-publish/Dockerfile -t ${{ env.IMAGE }}:$VERSION
           [ "$VERSION" == "main" ] && docker tag ${{ env.IMAGE }}:$VERSION ${{ env.IMAGE }}:latest
-
           echo "Pushing"
-
           docker push --all-tags ${{ env.IMAGE }}
